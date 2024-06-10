@@ -14,7 +14,7 @@ pipeline {
             stages {
                 stage('repositorio') {
                     steps {
-                        git branch: 'practica', url: 'https://github.com/ViTaXXX/django_sqlite.git'
+                        git branch: 'v1sqlite', url: 'https://github.com/ViTaXXX/django_sqlite.git'
                     }
                 }
                 stage('Requisitos') {
