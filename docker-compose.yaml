@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+  app:
+    container_name: django_icdc
+    image: andresdocker77/django_icdc:latest
+    restart: always
+    environment:
+      DB_HOST: mariadb
+      DB_USER: django
+      DB_PASS: django
+      DB_NAME: django
+      DJANGO_SUPERUSER_USERNAME: admin
+      DJANGO_SUPERUSER_EMAIL: test@test.com
+      DJANGO_SUPERUSER_PASSWORD: admin
+    ports:
+      - 8082:8002
+    depends_on:
+      - mariadb
+    networks:
+      - mynetwork
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: django
+      MYSQL_USER: django
+      MYSQL_PASSWORD: django
+      MYSQL_ROOT_PASSWORD: admin
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - mynetwork
+
+volumes:
+    mariadb:
+
+
+networks:
+  mynetwork:
+    driver: bridge
