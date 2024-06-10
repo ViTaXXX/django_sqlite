@@ -1,7 +1,7 @@
 pipeline {
     environment {
         LOGIN = 'USER_DOCKERHUB'
-        SSH_CREDENTIALS_ID = 'SSH_KEY'
+        SSH_CREDENTIALS_ID = 'SSH_KEY2'
     }
     agent any
     stages {
@@ -59,7 +59,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    sshagent(credentials: ['SSH_KEY']) {
+                    sshagent(credentials: ['SSH_KEY2']) {
                         sh 'ssh -o StrictHostKeyChecking=no andres@rinnegan.fernandezds.es wget https://raw.githubusercontent.com/ViTaXXX/django_sqlite/v1sqlite/docker-compose.yaml -O docker-compose.yaml'
                         sh 'ssh -o StrictHostKeyChecking=no andres@rinnegan.fernandezds.es docker-compose up -d --force-recreate'
                     }
