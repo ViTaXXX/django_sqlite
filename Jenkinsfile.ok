@@ -1,7 +1,6 @@
 pipeline {
     environment {
         LOGIN = 'USER_DOCKERHUB'
-        SSH_CREDENTIALS_ID = 'SSH_KEY' // ID de las credenciales SSH en Jenkins
     }
     agent any
     stages {
@@ -31,6 +30,7 @@ pipeline {
             }
         }
         stage("Crear_la_imagen") {
+            agent any
             stages {
                 stage('Construir_imagen') {
                     steps {
@@ -52,14 +52,6 @@ pipeline {
                     steps {
                         sh "docker rmi andresdocker77/django_icdc:latest"
                     }
-                }
-            }
-        }
-        stage("Desplegar") {
-            steps {
-                sshagent(credentials: ['SSH_KEY']) {
-                    sh 'ssh -o StrictHostKeyChecking=no andres@rinnegan.fernandezds.es wget https://raw.githubusercontent.com/ViTaXXX/django_sqlite/v1sqlite/docker-compose.yaml -O docker-compose.yaml'
-                    sh 'ssh -o StrictHostKeyChecking=no andres@rinnegan.fernandezds.es docker-compose up -d --force-recreate'
                 }
             }
         }
