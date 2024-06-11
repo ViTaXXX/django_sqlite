@@ -10,10 +10,10 @@ COPY ./django_tutorial /usr/src/app
 ADD ./script.sh /usr/src/app/
 RUN chmod +x /usr/src/app/script.sh
 
-EXPOSE 8002
+#EXPOSE 8002
 EXPOSE 8082
 EXPOSE 80
-EXPOSE 8006
+#EXPOSE 8006
 
 #ENV ALLOWED_HOSTS=*
 ENV DB_HOST=mariadb
