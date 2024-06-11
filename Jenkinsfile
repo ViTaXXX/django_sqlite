@@ -56,7 +56,7 @@ pipeline {
                 }
                 stage('eliminarla') {
                     steps {
-                        sh "docker rmi $IMAGEN:$BUILD_NUMBER"
+                        sh "docker rmi $IMAGEN:latest"
                     }
                 }
             }
