@@ -1,9 +1,9 @@
 pipeline {
     environment {
+        IMAGEN = "andresdocker77/django_icdc"
         LOGIN = 'USER_DOCKERHUB'
-        SSH_CREDENTIALS_ID = 'SSH_KEY3'
     }
-    agent any
+    agent none
     stages {
         stage("Imagen") {
             agent {
@@ -18,28 +18,34 @@ pipeline {
                         git branch: 'v1sqlite', url: 'https://github.com/ViTaXXX/django_sqlite.git'
                     }
                 }
-                stage('Requisitos') {
+                stage('requisitos') {
                     steps {
                         sh 'pip install -r requirements.txt'
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh 'python manage.py test'
+                        sh 'python3 manage.py test'
                     }
                 }
             }
         }
-        stage("Crear_la_imagen") {
+        stage("crear_la_imagen") {
+            agent any
             stages {
-                stage('Construir_imagen') {
+                stage('imagen2') {
+                    steps {
+                        git branch: 'master', url: 'https://github.com/ViTaXXX/django2jenkins.git'
+                    }
+                }
+                stage('generarimagen') {
                     steps {
                         script {
-                            newApp = docker.build("andresdocker77/django_icdc:latest", "--no-cache .")
+                            newApp = docker.build "$IMAGEN:$BUILD_NUMBER"
                         }
                     }
                 }
-                stage('Subirla') {
+                stage('subirla') {
                     steps {
                         script {
                             docker.withRegistry('', LOGIN) {
@@ -48,14 +54,14 @@ pipeline {
                         }
                     }
                 }
-                stage('Borrarla') {
+                stage('eliminarla') {
                     steps {
-                        sh "docker rmi andresdocker77/django_icdc:latest"
+                        sh "docker rmi $IMAGEN:$BUILD_NUMBER"
                     }
                 }
             }
         }
-        stage("Desplegar") {
+        stage('despliegue') {
             agent any
             steps {
                 script {
@@ -67,5 +73,4 @@ pipeline {
             }
         }
     }
-
 }
