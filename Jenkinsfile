@@ -41,7 +41,7 @@ pipeline {
                 stage('generarimagen') {
                     steps {
                         script {
-                            newApp = docker.build "$IMAGEN:$BUILD_NUMBER"
+                            newApp = docker.build "$IMAGEN:latest"
                         }
                     }
                 }
