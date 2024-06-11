@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 RUN sed -i 's/http:/https:/g' /etc/apt/sources.list.d/debian.sources
 RUN echo 'Acquire::https::Verify-Peer "false";' > /etc/apt/apt.conf.d/99ignore-ssl-certificates
 
-RUN apt-get install git && pip install --root-user-action=ignore --upgrade pip && pip install --root-user-action=ignore django mysql-client
+RUN apt-get install git mysql-client && pip install --root-user-action=ignore --upgrade pip && pip install --root-user-action=ignore django mysqlclient
 COPY ./django_tutorial /usr/src/app
 
 ADD ./script.sh /usr/src/app/
