@@ -8,14 +8,14 @@
 #echo "La base de datos está lista."
 
 # Aplicar migraciones
-python3 manage.py makemigrations
-python3 manage.py migrate
+#python3 manage.py makemigrations
+#python3 manage.py migrate
 
 # Crear superusuario si no existe
-python3 manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true
+#python3 manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true
 
 # Recoger archivos estáticos
-python3.manage.py collectstatic --no-input
+#python3.manage.py collectstatic --no-input
 
 # Iniciar el servidor Django
-python3 manage.py runserver 0.0.0.0:8002
+#python3 manage.py runserver 0.0.0.0:8002
