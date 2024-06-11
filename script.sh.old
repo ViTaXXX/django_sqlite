@@ -2,7 +2,7 @@
 
 # Esperar a que la base de datos esté lista
 echo "Esperando a que la base de datos esté lista..."
-while ! nc -z "$DB_HOST" 3306; do
+while ! mysqladmin ping -h"$HOST" --silent; do
   sleep 1
 done
 echo "La base de datos está lista."
@@ -15,7 +15,7 @@ python3 manage.py migrate
 python3 manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true
 
 # Recoger archivos estáticos
-python3.manage.py collectstatic --no-input
+python3 manage.py collectstatic --no-input
 
 # Iniciar el servidor Django
 python3 manage.py runserver 0.0.0.0:8002
