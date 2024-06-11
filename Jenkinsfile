@@ -35,7 +35,7 @@ pipeline {
                 stage('Construir_imagen') {
                     steps {
                         script {
-                            newApp = docker.build("andresdocker77/django_icdc:latest", "--no-cache")
+                            newApp = docker.build("andresdocker77/django_icdc:latest", "--no-cache .")
                         }
                     }
                 }
