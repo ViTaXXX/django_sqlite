@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # Esperar a que la base de datos esté lista
-echo "Esperando a que la base de datos esté lista..."
-while ! nc -z "$DB_HOST" 3306; do
-  sleep 1
-done
-echo "La base de datos está lista."
+#echo "Esperando a que la base de datos esté lista..."
+#while ! nc -z "$DB_HOST" 3306; do
+#  sleep 1
+#done
+#echo "La base de datos está lista."
 
 # Aplicar migraciones
 python3 manage.py makemigrations
